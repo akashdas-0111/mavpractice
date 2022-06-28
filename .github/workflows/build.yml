@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build-artifacts:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      
+      - name: build application
+        run: mvn clean install
+
+      - name: Build artifact
+        run: |
+          echo "NEW_RELEASE_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -e '^[[:digit:]]'`" >> $GITHUB_ENV
+
+      - name: printing release
+        run: echo ${env.NEW_RELEASE_VERSION}    
