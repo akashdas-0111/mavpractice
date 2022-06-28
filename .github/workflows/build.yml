@@ -19,4 +19,4 @@ jobs:
           echo "NEW_RELEASE_VERSION=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -e '^[[:digit:]]'`" >> $GITHUB_ENV
 
       - name: printing release
-        run: echo ${env.NEW_RELEASE_VERSION}    
+        run: echo ${{ env.NEW_RELEASE_VERSION }}    
